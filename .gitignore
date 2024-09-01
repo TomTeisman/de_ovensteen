@@ -1,0 +1,10 @@
+# exclude database files from git
+*.sql
+config.php
+
+# exclude the log files from git
+*.log
+
+# exclude folders from git
+/documentatie
+/vendor
