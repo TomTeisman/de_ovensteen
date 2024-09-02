@@ -1,0 +1,8 @@
+<?php
+require "config.php";
+$arguments = $argv;
+
+// Starts the application
+if (in_array("serve", $arguments)) {
+    exec("php -S localhost:8000 -t public");
+}
