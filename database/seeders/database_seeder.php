@@ -6,3 +6,4 @@ include "./database/seeders/users_table_seeder.php";
 include "./database/seeders/categories_table_seeder.php";
 include "./database/seeders/products_table_seeder.php";
 include "./database/seeders/orderrow_states_seeder.php";
+include "./database/seeders/order_states_seeder.php";
