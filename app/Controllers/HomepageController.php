@@ -8,12 +8,12 @@ class HomepageController implements Controller
 {
     public static function index()
     {
-        echo "test";
+        //
     }
 
     public static function show($id)
     {
-        echo "test with product: " . $id;
+        //
     }
 
     public static function create()

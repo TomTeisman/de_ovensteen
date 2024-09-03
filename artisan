@@ -6,3 +6,19 @@ $arguments = $argv;
 if (in_array("serve", $arguments)) {
     exec("php -S localhost:8000 -t public");
 }
+
+// Clears and remigrates the database
+if (in_array("migrate:fresh", $arguments)) {
+    include "./database/migrations/drop_all_tables.php";
+    include "./database/migrations/database_migration.php";
+}
+
+// Migrates the database
+if(in_array("migrate", $arguments)) {
+    include "./database/migrations/database_migration.php";
+}
+
+// Seeds the database
+if (in_array("db:seed", $arguments) || in_array("--seed", $arguments)) {
+    include "./database/seeders/database_seeder.php";
+}

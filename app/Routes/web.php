@@ -13,4 +13,3 @@ use App\Route;
 */
 
 Route::get("/", "HomepageController@index");
-Route::get("/home/{id}", "HomepageController@show");
