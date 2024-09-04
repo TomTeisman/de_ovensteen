@@ -48,5 +48,5 @@ abstract class Model
 
     abstract public static function all(): array;
 
-    abstract public static function find($parameter);
+    abstract public static function find($id): array;
 }

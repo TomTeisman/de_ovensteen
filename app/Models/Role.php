@@ -24,9 +24,12 @@ class Role extends Model
         return parent::executeQuery($sql);
     }
 
-    public static function find($id)
+    public static function find($id): array
     {
         $sql = "SELECT * FROM `roles` WHERE `id` = :id";
-        return parent::executeQuery($sql);
+        $id = ['id' => $id];
+        
+        $role = self::executeQuery($sql, $id);
+        return $role[0];
     }
 }
