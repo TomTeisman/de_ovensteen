@@ -36,7 +36,7 @@ abstract class Model
         
         try {
             $statement = $pdo->prepare($sql);
-            $statement->execute();
+            $statement->execute($parameters);
             $result = $statement->fetchAll(PDO::FETCH_ASSOC);
 
             return $result ?: [];
