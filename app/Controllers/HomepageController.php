@@ -3,17 +3,22 @@
 namespace App\Controllers;
 
 use App\Interfaces\Controller;
+use App\Models\Role;
 
 class HomepageController implements Controller 
 {
     public static function index()
     {
-        //
+        $roles = Role::all();
+        foreach ($roles as $role) {
+            echo "$role[name]</br>";
+        }
     }
 
     public static function show($id)
     {
-        //
+        $role = Role::find($id);
+        echo $role["name"];
     }
 
     public static function create()
