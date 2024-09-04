@@ -13,4 +13,6 @@ use App\Route;
 */
 
 Route::get("/", "HomepageController@index");
-Route::get("/{id}", "HomepageController@show");
+
+Route::get("/roles", "RoleController@index");
+Route::get("/roles/{id}", "RoleController@show");
