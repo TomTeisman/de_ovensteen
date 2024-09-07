@@ -32,4 +32,25 @@ class Role extends Model
         $role = self::executeQuery($sql, $id);
         return $role[0];
     }
+
+    public function save(): bool
+    {
+        $sql = "INSERT INTO `roles` (`name`) VALUES (:name);";
+        $name = ['name' => $this->name];
+
+        $result = self::executeQuery($sql, $name);
+        return $result;
+    }
+
+    public function update($id): bool
+    {
+        $sql = "UPDATE `roles` SET `name` = :name WHERE `id` = :id";
+        $parameters = [
+            'id' => $id,
+            'name' => $this->name
+        ];
+
+        $result = self::executeQuery($sql, $parameters);
+        return $result;
+    }
 }

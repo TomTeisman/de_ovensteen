@@ -13,13 +13,14 @@ class Route
      * @param  string           $path     URL path of the route
      * @param  callable|string  $handler  Function or "Controller@method" to handle the request
      */
-    private static function add_route($method, $path, $handler)
+    private static function add_route($method, $path, $handler, $name)
     {
         global $routes;
         $routes[strtoupper($method)][] =
             [
                 'path' => $path,
                 'handler' => $handler,
+                'name' => $name
             ];
     }
 
@@ -71,11 +72,37 @@ class Route
         echo "404 - Not Found";
     }
 
+    protected static function setDefaultName(string $handler)
+    {
+        $splitHandler = explode('@', $handler);
+        $controllerName = strtolower(str_replace('Controller', '', $splitHandler[0]));
+        $functionName = $splitHandler[1];
+        
+        $name = $controllerName . '.' . $functionName;
+        return $name;
+    }
+
     /**
      * Register a new route with GET method
      */
-    public static function get(string $url, string $handler)
+    public static function get(string $url, string $handler, string $name = null)
     {
-        static::add_route("GET", $url, $handler);
+        if ($name === null) {
+            $name = static::setDefaultName($handler);
+        }
+
+        static::add_route("GET", $url, $handler, $name);
+    }
+
+    /**
+     * Register a new route with POST method
+     */
+    public static function post(string $url, string $handler, string $name = null)
+    {
+        if ($name === null) {
+            $name = static::setDefaultName($handler);
+        }
+
+        static::add_route("POST", $url, $handler, $name);
     }
 }

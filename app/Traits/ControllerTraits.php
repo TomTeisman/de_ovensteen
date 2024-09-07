@@ -1,0 +1,40 @@
+<?php
+
+namespace App\Traits;
+
+use App\Route;
+
+trait ControllerTraits
+{
+    /**
+     * Get the given view
+     * 
+     * @param  string  $view
+     * @return void
+     */
+    public static function view($view) 
+    {
+        $basePath = "../app/Views/";
+        $path = $basePath . str_replace(".", "/", $view) . ".php";
+        return include $path;
+    }
+
+    /**
+     * Redirect to the given route
+     * 
+     * @param  string  $route
+     * @return void
+     */
+    public static function redirect($paramRoute = null)
+    {
+        global $routes;
+        
+        foreach ($routes as $route) {
+            foreach ($route as $r) {
+                if ($paramRoute === $r['name']) {
+                    header("Location:" . $r['path']);
+                }
+            }
+        }
+    }
+}
