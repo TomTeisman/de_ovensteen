@@ -12,9 +12,6 @@ use App\Route;
 |
 */
 
-/* - homepage routes - */
-Route::get("/", "HomepageController@index");
-
 /* - role routes - */
 Route::get("/roles", "RoleController@index");
 Route::get("/roles/{id}", "RoleController@show");
@@ -23,3 +20,7 @@ Route::post("/roles", "RoleController@store");
 Route::get("/roles/{id}/edit", "RoleController@edit");
 Route::post("/roles/{id}", "RoleController@update");
 Route::post("/roles/{id}/delete", "RoleController@destroy");
+
+/* - category routes - */
+Route::get("/categories", "CategoryController@index");
+Route::get("/categories/{id}", "CategoryController@show");
