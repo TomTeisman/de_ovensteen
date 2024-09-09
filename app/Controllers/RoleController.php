@@ -13,9 +13,7 @@ class RoleController implements Controller
     public static function index()
     {
         $roles = Role::all();
-        foreach ($roles as $role) {
-            echo "<a href=\"/roles/$role[id]\">$role[name]</a></br>";
-        }
+        return (new self)->view('roles.index', ['roles' => $roles]);
     }
 
     public static function show($id)
