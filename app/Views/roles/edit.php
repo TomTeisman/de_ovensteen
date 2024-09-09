@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>create</title>
+    <title>edit</title>
 </head>
 <body>
-    <form action="/roles" method="post">
+    <form action="<?php echo "/roles/" . $role["id"]?>" method="post">
         <label for="name">name</label>
-        <input name="name" id="name">
+        <input id="name" name="name" placeholder="<?php echo htmlspecialchars($role['name'])?>"/>
         <button type="submit">Verzenden</button>
     </form>
 </body>

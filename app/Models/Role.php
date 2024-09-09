@@ -53,4 +53,13 @@ class Role extends Model
         $result = self::executeQuery($sql, $parameters);
         return $result;
     }
+
+    public static function delete($id): bool
+    {
+        $sql = "DELETE FROM `roles` WHERE `id` = :id";
+        $parameters = ['id' => $id];
+
+        $result = self::executeQuery($sql, $parameters);
+        return $result;
+    }
 }

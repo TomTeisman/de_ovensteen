@@ -14,14 +14,14 @@ class RoleController implements Controller
     {
         $roles = Role::all();
         foreach ($roles as $role) {
-            echo "$role[name]</br>";
+            echo "<a href=\"/roles/$role[id]\">$role[name]</a></br>";
         }
     }
 
     public static function show($id)
     {
         $role = Role::find($id);
-        echo $role['name'];
+        return (new self)->view('roles.show', ['role' => $role]);
     }
 
     public static function create()
@@ -39,16 +39,19 @@ class RoleController implements Controller
     public static function edit($id)
     {
         $role = Role::find($id);
-        echo $role['name'];
+        return (new self)->view('roles.edit', ['role' => $role]);
     }
 
     public static function update($id)
     {
-        //
+        $role = new Role($_POST['name']); // add security features and validation!!!
+        $role->update($id);
+        return (new self)->redirect('role.index');
     }
 
     public static function destroy($id)
     {
-        //   
+        Role::delete($id);
+        return (new self)->redirect('role.index');
     }
 }

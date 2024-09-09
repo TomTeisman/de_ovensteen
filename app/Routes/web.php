@@ -22,3 +22,4 @@ Route::get("/create/roles", "RoleController@create");
 Route::post("/roles", "RoleController@store");
 Route::get("/roles/{id}/edit", "RoleController@edit");
 Route::post("/roles/{id}", "RoleController@update");
+Route::post("/roles/{id}/delete", "RoleController@destroy");
