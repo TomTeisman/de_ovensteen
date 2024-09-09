@@ -10,12 +10,16 @@ trait ControllerTraits
      * Get the given view
      * 
      * @param  string  $view
+     * @param  array   $parameters
      * @return void
      */
-    public static function view($view) 
+    public static function view($view, $parameters = []) 
     {
+        extract($parameters);
+
         $basePath = "../app/Views/";
         $path = $basePath . str_replace(".", "/", $view) . ".php";
+
         return include $path;
     }
 
