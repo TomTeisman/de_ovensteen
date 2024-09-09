@@ -54,11 +54,28 @@ abstract class Model
         }
     }
 
+    /**
+     * Fetch all items from the resource
+     */
     abstract public static function all(): array;
 
+    /**
+     * Fetch the specific item from the resource
+     */
     abstract public static function find($id): array;
 
+    /**
+     * Save a new item to the resource
+     */
     abstract public function save(): bool;
 
+    /**
+     * Update the specified item from the resource
+     */
     abstract public function update($id): bool;
+
+    /**
+     * Remove the specified item from the resource
+     */
+    abstract public static function delete($id): bool;
 }
