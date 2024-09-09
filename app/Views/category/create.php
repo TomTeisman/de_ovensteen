@@ -8,10 +8,14 @@
 </head>
 
 <body>
-    <form action="/roles" method="post">
+    <form action="/categories" method="post">
         <label for="name">name</label>
         </br>
         <input name="name" id="name">
+        </br>
+        <label for="slug">slug</label>
+        </br>
+        <input name="slug" id="slug">
         </br>
         </br>
         <button type="submit">Verzenden</button>

@@ -6,10 +6,12 @@
     <title>Document</title>
 </head>
 <body>
-    <?php 
+    <?php
         foreach ($roles as $role) {
             echo "<a href='/roles/$role[id]'>$role[name]</a></br>";
         }
     ?>
+    </br>
+    <button onclick="location.href='/create/roles'">Niewe rol</button>
 </body>
 </html>

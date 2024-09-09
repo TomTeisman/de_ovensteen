@@ -24,26 +24,32 @@ class CategoryController implements Controller
 
     public static function create()
     {
-        //
+        return (new self)->view('category.create');
     }
     
     public static function store()
     {
-        //
+        $category = new Category($_POST['name'], $_POST['slug']); // add security features and validation!!!
+        $category->save();
+        return (new self)->redirect('category.index');
     }
 
     public static function edit($id)
     {
-        //
+        $category = Category::find($id);
+        return (new self)->view('category.edit', ['category' => $category]);
     }
 
     public static function update($id)
     {
-        //
+        $category = new Category($_POST['name'], $_POST['slug']); // add security features and validation!!!
+        $category->update($id);
+        return (new self)->redirect('category.index');
     }
 
     public static function destroy($id)
     {
-        //
+        Category::delete($id);
+        return (new self)->redirect('category.index');
     }
 }

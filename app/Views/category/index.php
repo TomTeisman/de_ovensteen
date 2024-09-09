@@ -11,5 +11,7 @@
             echo "<a href='/categories/$category[id]'>$category[name]</a></br>";
         }
     ?>
+    </br>
+    <button onclick="location.href='/create/categories'">Niewe categorie</button>
 </body>
 </html>

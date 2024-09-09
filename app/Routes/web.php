@@ -24,3 +24,8 @@ Route::post("/roles/{id}/delete", "RoleController@destroy");
 /* - category routes - */
 Route::get("/categories", "CategoryController@index");
 Route::get("/categories/{id}", "CategoryController@show");
+Route::get("/create/categories", "CategoryController@create");
+Route::post("/categories", "CategoryController@store");
+Route::get("/categories/{id}/edit", "CategoryController@edit");
+Route::post("/categories/{id}", "CategoryController@update");
+Route::post("/categories/{id}/delete", "CategoryController@destroy");
