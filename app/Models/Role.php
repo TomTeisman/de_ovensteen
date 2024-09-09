@@ -21,7 +21,7 @@ class Role extends Model
     public static function all(): array
     {
         $sql = "SELECT * FROM `roles`";
-        return parent::executeQuery($sql);
+        return self::executeQuery($sql);
     }
 
     public static function find($id): array
@@ -36,10 +36,9 @@ class Role extends Model
     public function save(): bool
     {
         $sql = "INSERT INTO `roles` (`name`) VALUES (:name);";
-        $name = ['name' => $this->name];
+        $parameters = ['name' => $this->name];
 
-        $result = self::executeQuery($sql, $name);
-        return $result;
+        return self::executeQuery($sql, $parameters);
     }
 
     public function update($id): bool
