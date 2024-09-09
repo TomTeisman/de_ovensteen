@@ -49,8 +49,7 @@ class Role extends Model
             'name' => $this->name
         ];
 
-        $result = self::executeQuery($sql, $parameters);
-        return $result;
+        return self::executeQuery($sql, $parameters);
     }
 
     public static function delete($id): bool
@@ -58,7 +57,6 @@ class Role extends Model
         $sql = "DELETE FROM `roles` WHERE `id` = :id";
         $parameters = ['id' => $id];
 
-        $result = self::executeQuery($sql, $parameters);
-        return $result;
+        return self::executeQuery($sql, $parameters);
     }
 }
