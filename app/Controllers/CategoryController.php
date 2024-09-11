@@ -44,7 +44,7 @@ class CategoryController implements Controller
     {
         $category = new Category($_POST['name'], $_POST['slug']); // add security features and validation!!!
         $category->update($id);
-        return (new self)->redirect('category.index');
+        return (new self)->redirect('category.show', ['id' => $id]);
     }
 
     public static function destroy($id)

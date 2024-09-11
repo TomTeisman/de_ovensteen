@@ -27,14 +27,22 @@ trait ControllerTraits
      * @param  string  $route
      * @return void
      */
-    public static function redirect($paramRoute = null)
+    public static function redirect($routeName = null, $parameters = [])
     {
         global $routes;
-        
-        foreach ($routes as $route) {
-            foreach ($route as $r) {
-                if ($paramRoute === $r['name']) {
-                    header("Location:" . $r['path']);
+
+        foreach ($routes as $routeMethods) {
+            foreach ($routeMethods as $route) {
+                if ($routeName === $route['name']) {
+                    
+                    $path = $route['path'];
+                    
+                    foreach ($parameters as $key => $value) {
+                        $path = str_replace('{' . $key . '}', $value, $path);
+                    }
+                    
+                    header("Location:" . $path);
+                    exit;
                 }
             }
         }
