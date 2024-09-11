@@ -28,8 +28,12 @@ class RoleController implements Controller
     }
 
     public static function store()
-    {
-        $role = new Role($_POST['name']); // add security features and validation!!!
+    {        
+        $validateData = (new self)->validate([
+            'name' => "required|string|max:40",
+        ]);
+
+        $role = new Role($validateData['name']);
         $role->save();
         return (new self)->redirect('role.index');
     }
@@ -42,7 +46,11 @@ class RoleController implements Controller
 
     public static function update($id)
     {
-        $role = new Role($_POST['name']); // add security features and validation!!!
+        $validateData = (new self)->validate([
+            'name' => "required|string|max:40"
+        ]);
+        
+        $role = new Role($validateData['name']);
         $role->update($id);
         return (new self)->redirect('role.index');
     }

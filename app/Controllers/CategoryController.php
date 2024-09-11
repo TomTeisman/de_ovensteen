@@ -29,7 +29,12 @@ class CategoryController implements Controller
     
     public static function store()
     {
-        $category = new Category($_POST['name'], $_POST['slug']); // add security features and validation!!!
+        $validatedData = (new self)->validate([
+            'name' => "required|string|max:40",
+            'slug' => "required|string|max:100"
+        ]);
+
+        $category = new Category($validatedData["name"], $validatedData["slug"]);
         $category->save();
         return (new self)->redirect('category.index');
     }
@@ -42,7 +47,12 @@ class CategoryController implements Controller
 
     public static function update($id)
     {
-        $category = new Category($_POST['name'], $_POST['slug']); // add security features and validation!!!
+        $validatedData = (new self)->validate([
+            'name' => "required|string|max:40",
+            'slug' => "required|string|max:100"
+        ]);
+
+        $category = new Category($validatedData['name'], $validatedData['slug']);
         $category->update($id);
         return (new self)->redirect('category.show', ['id' => $id]);
     }
