@@ -28,5 +28,5 @@ php artisan serve
 For any questions, please contact [tjg.teisman@gmail.com](mailto:tjg.teisman@gmail.com).
 
 ## Versions ##
-PHP: 8.2.0
+PHP: 8.2.0  
 MySQL: 8.0.31
