@@ -13,18 +13,19 @@ class CategoryController implements Controller
     public static function index()
     {
         $categories = Category::all();
-        return (new self)->view('category.index', ['categories' => $categories]);
+        return (new self)->view('categories.index', ['categories' => $categories]);
     }
 
     public static function show($id)
     {
         $category = Category::find($id);
-        return (new self)->view('category.show', ['category' => $category]);
+        $products = Category::products($id);
+        return (new self)->view('categories.show', ['category' => $category, 'products' => $products]);
     }
 
     public static function create()
     {
-        return (new self)->view('category.create');
+        return (new self)->view('categories.create');
     }
     
     public static function store()
@@ -42,7 +43,7 @@ class CategoryController implements Controller
     public static function edit($id)
     {
         $category = Category::find($id);
-        return (new self)->view('category.edit', ['category' => $category]);
+        return (new self)->view('categories.edit', ['category' => $category]);
     }
 
     public static function update($id)

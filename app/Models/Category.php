@@ -66,4 +66,12 @@ class Category extends Model
 
         return self::executeQuery($sql, $parameters);
     }
+
+    public static function products($id): array
+    {
+        $sql = "SELECT * FROM `products` WHERE `categorie_id` = :categorie_id";
+        $parameters = ['categorie_id' => $id];
+
+        return self::executeQuery($sql, $parameters);
+    }
 }

@@ -29,3 +29,12 @@ Route::post("/categories", "CategoryController@store");
 Route::get("/categories/{id}/edit", "CategoryController@edit");
 Route::post("/categories/{id}", "CategoryController@update");
 Route::post("/categories/{id}/delete", "CategoryController@destroy");
+
+/* - product routes */
+Route::get("/products", "ProductController@index");
+Route::get("/products/{id}", "ProductController@show");
+Route::get("/create/products", "ProductController@create");
+Route::post("/products", "ProductController@store");
+Route::get("/products/{id}/edit", "ProductController@edit");
+Route::post("/products/{id}", "ProductController@update");
+Route::post("/products/{id}/delete", "ProductController@destroy");
