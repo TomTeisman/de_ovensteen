@@ -13,12 +13,14 @@ class ProductController implements Controller
     public static function index()
     {
         $products = Product::all();
-        die(print_r($products));
+        return (new self)->view('products.index', ['products' => $products]);
     }
 
     public static function show($id)
     {
-        //
+        $product = Product::find($id);
+        $category = Product::category($product['categorie_id']);
+        return (new self)->view('products.show', ['product' => $product, 'category' => $category]);
     }
 
     public static function create()

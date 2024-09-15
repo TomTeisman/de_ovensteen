@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>create</title>
+    <title>show</title>
 </head>
 <body>
     <form action="<?php echo "/categories/" . $category['id'] . "/delete" ?>" method="post">

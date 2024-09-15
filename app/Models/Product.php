@@ -82,6 +82,7 @@ class Product extends Model
         $sql = "SELECT * FROM `categories` WHERE `id` = :id";
         $parameters = ['id' => $id];
 
-        return self::executeQuery($sql, $parameters);
+        $return = self::executeQuery($sql, $parameters);
+        return $return[0];
     }
 }
