@@ -12,6 +12,6 @@
         }
     ?>
     </br>
-    <button onclick="location.href='#'">Niew product</button>
+    <button onclick="location.href='/create/products'">Niew product</button>
 </body>
 </html>

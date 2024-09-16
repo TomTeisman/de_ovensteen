@@ -15,7 +15,9 @@
     <div>
         <?php
             foreach ($products as $product) {
-                echo "<p>$product[name]</p>";
+                echo "<p>
+                        <a href=\"/products/$product[id]\">$product[name]</a>
+                    </p>";
             }
         ?>
     </div>

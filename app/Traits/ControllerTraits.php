@@ -2,6 +2,8 @@
 
 namespace App\Traits;
 
+use Exception;
+
 trait ControllerTraits
 {
     /**
@@ -76,7 +78,12 @@ trait ControllerTraits
                         break;
                     case 'integer':
                         if (!is_integer($_POST[$key])) {
-                            die("error_handling: integer");
+                            try {
+                                $_POST[$key] = settype($_POST[$key], "integer");
+                            } catch (Exception $e) {
+                                die($e);
+                                die("cannot convert to integer: " . $_POST[$key]);
+                            }
                         }
                         break;
                     case 'boolean':
@@ -86,7 +93,12 @@ trait ControllerTraits
                         break;
                     case 'numeric':
                         if (!is_numeric($_POST[$key])) {
-                            die("error_handling: numeric");
+                            try {
+                                $_POST[$key] = settype($_POST[$key], "float");
+                            } catch (Exception $e) {
+                                die($e);
+                                die("error_handling: numeric");
+                            }
                         }
                         break;
                     case str_contains($rule, 'min'):
