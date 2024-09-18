@@ -20,7 +20,6 @@ class Product extends Model
      */
     public function __construct(string $name, int $categorie_id, string $description, float $price)
     {
-        parent::__construct();
         $this->name = $name;
         $this->categorie_id = $categorie_id;
         $this->description = $description;

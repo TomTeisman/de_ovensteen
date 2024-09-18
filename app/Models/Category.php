@@ -16,7 +16,6 @@ class Category extends Model
      */
     public function __construct(string $name, string $slug)
     {
-        parent::__construct();
         $this->name = $name;
         $this->slug = $slug;
     }
