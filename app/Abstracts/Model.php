@@ -4,6 +4,7 @@ namespace App\Abstracts;
 
 use PDO;
 use PDOException;
+use App\Lib\Log;
 
 abstract class Model
 {
@@ -11,29 +12,21 @@ abstract class Model
     const USER = DB_USERNAME;
     const PASSWD = DB_PASSWORD;
 
-    protected $pdo;
-
-    public function __construct() 
-    {
-        try {
-            $this->pdo = new PDO(self::DSN, self::USER, self::PASSWD);
-            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch (PDOException $e) {
-            // add error handeling
-            die($e->getMessage());
-        }
-    }
-
+    /**
+     * Execute the given sql query
+     * 
+     * @param  string  $sql         The sql query to execute
+     * @param  array   $parameters  The parameters for the query
+     */
     public static function executeQuery(string $sql, array $parameters = []): array|bool
     {
         try {
             $pdo = new PDO(self::DSN, self::USER, self::PASSWD);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
-            // add error handeling
-            die($e->getMessage());
+            Log::error($e->getMessage());
         }
-        
+
         try {
             $statement = $pdo->prepare($sql);
             $statement->execute($parameters);
@@ -49,8 +42,7 @@ abstract class Model
                 return true;
             }
         } catch (PDOException $e) {
-            // add error handeling
-            die($e->getMessage());
+            Log::error($e->getMessage());
         }
     }
 
