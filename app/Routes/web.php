@@ -13,7 +13,7 @@ use App\Route;
 */
 
 /* - role routes - */
-Route::get("/roles", "RoleController@index");
+Route::get("/roles", "RoleController@index", ["Auth", "Role:admin,manager"]);
 Route::get("/roles/{id}", "RoleController@show");
 Route::get("/create/roles", "RoleController@create");
 Route::post("/roles", "RoleController@store");

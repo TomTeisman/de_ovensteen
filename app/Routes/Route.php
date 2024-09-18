@@ -9,17 +9,20 @@ class Route
     /**
      * Add a new route
      * 
-     * @param  string           $method   HTTP method of the route (GET, POST, PUT, PATCH, DELETE)
-     * @param  string           $path     URL path of the route
-     * @param  callable|string  $handler  Function or "Controller@method" to handle the request
+     * @param  string           $method      HTTP method of the route (GET, POST, PUT, PATCH, DELETE)
+     * @param  string           $path        URL path of the route
+     * @param  callable|string  $handler     Function or "Controller@method" to handle the request
+     * @param  array            $middleware  The middleware to execute before route handeling
+     * @param  string           $name        The name of the route
      */
-    private static function add_route($method, $path, $handler, $name)
+    private static function add_route($method, $path, $handler, $middleware, $name)
     {
         global $routes;
         $routes[strtoupper($method)][] =
             [
                 'path' => $path,
                 'handler' => $handler,
+                'middleware' => $middleware,
                 'name' => $name
             ];
     }
@@ -37,6 +40,7 @@ class Route
         foreach ($routes[$method] as $route) {
             $path = $route['path'];
             $handler = $route['handler'];
+            $middleware = $route['middleware'] ?? [];
 
             // Convert dynamic parts like {id} to regex patterns
             $pattern = preg_replace('/\{([a-zA-Z0-9_]+)\}/', '(?P<$1>[^/]+)', $path);
@@ -47,6 +51,14 @@ class Route
             if (preg_match($pattern, $url, $matches)) {
                 // Extract named parameters from the matches
                 $params = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
+
+                // Execute middleware
+                foreach ($middleware as $mw) {
+                    $middlewareClass = "App\\Controllers\\Middleware\\$mw";
+                    if (class_exists($middlewareClass)) {
+                        $middlewareClass::handle();
+                    }
+                }
 
                 // If the handler is a callable function
                 if (is_callable($handler)) {
@@ -85,24 +97,38 @@ class Route
     /**
      * Register a new route with GET method
      */
-    public static function get(string $url, string $handler, string $name = null)
+    public static function get(string $url, string $handler, array $middleware = [], string $name = null)
     {
         if ($name === null) {
             $name = static::setDefaultName($handler);
         }
 
-        static::add_route("GET", $url, $handler, $name);
+        // die(print_r($middleware));
+        foreach($middleware as $mw) {
+            if(str_contains($mw, ":")) {
+                $parameters = explode(":", $mw);
+                $parameters = array_slice($parameters, 1);
+                $class = $parameters[0];
+                die(var_dump($class) . var_dump($parameters));
+                $mw = [
+                    "class" => $class,
+                    "parameters" => $parameters
+                ];
+            }
+        }
+
+        static::add_route("GET", $url, $handler, $middleware, $name);
     }
 
     /**
      * Register a new route with POST method
      */
-    public static function post(string $url, string $handler, string $name = null)
+    public static function post(string $url, string $handler, array $middleware = [], string $name = null)
     {
         if ($name === null) {
             $name = static::setDefaultName($handler);
         }
 
-        static::add_route("POST", $url, $handler, $name);
+        static::add_route("POST", $url, $handler, $middleware, $name);
     }
 }
