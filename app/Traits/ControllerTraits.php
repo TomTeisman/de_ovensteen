@@ -79,7 +79,7 @@ trait ControllerTraits
                     case 'integer':
                         if (!is_integer($_POST[$key])) {
                             try {
-                                $_POST[$key] = settype($_POST[$key], "integer");
+                                settype($_POST[$key], "integer");
                             } catch (Exception $e) {
                                 die($e);
                                 die("cannot convert to integer: " . $_POST[$key]);
