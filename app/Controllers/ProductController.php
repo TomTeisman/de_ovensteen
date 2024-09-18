@@ -55,7 +55,7 @@ class ProductController implements Controller
     {
         $validatedData = (new self)->validate([
             'name' => "required|string|max:80",
-            'category' => "required",
+            'category' => "required|integer",
             'description' => "required|string",
             'price' => "required|numeric"
         ]);
