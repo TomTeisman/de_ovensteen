@@ -94,7 +94,7 @@ trait ControllerTraits
                     case 'numeric':
                         if (!is_numeric($_POST[$key])) {
                             try {
-                                $_POST[$key] = settype($_POST[$key], "float");
+                                settype($_POST[$key], "float");
                             } catch (Exception $e) {
                                 die($e);
                                 die("error_handling: numeric");
