@@ -31,11 +31,11 @@ require __DIR__ . "/../vendor/autoload.php";
 |--------------------------------------------------------------------------
 |
 | With the app router we provide the possibility to define routes based
-| on the uri. For a list of routes registerred and the possiblity to 
+| on the uri. For a list of routes registerred and the possiblity to
 | add custom routes to the application check out app/Routes/web.php.
 |
 */
-require_once __DIR__ . "/../app/Routes/router.php";
+require_once __DIR__ . "/../app/Routes/Route.php";
 require_once __DIR__ . "/../app/Routes/web.php";
 
 $url = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
