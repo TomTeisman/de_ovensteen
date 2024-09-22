@@ -56,7 +56,6 @@ class Route
                 foreach ($middleware as $mw) {
                     $middlewareClass = "App\\Controllers\\Middleware\\$mw[class]";
                     if (class_exists($middlewareClass)) {
-
                         // check if middleware gets parameters 
                         if (isset($mw["parameters"])) {
                             $middlewareClass::handle($mw["parameters"]);
@@ -65,7 +64,7 @@ class Route
                         }
                     }
                 }
-
+                
                 // If the handler is a callable function
                 if (is_callable($handler)) {
                     return call_user_func_array($handler, $params);

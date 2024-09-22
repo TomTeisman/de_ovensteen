@@ -6,11 +6,11 @@ class Role
 {
     public static function handle(...$roles)
     {
-        $roles = $roles[0];
-        echo "These are the roles allowed:</br>";
-        foreach ($roles as $role) {
+        // Check if the user is authorised
+        echo "check if the user has one of the following roles: </br>";
+
+        foreach ($roles[0] as $role) {
             echo $role . "</br>";
         }
-        echo "</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>";
     }
 }
