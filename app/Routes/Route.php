@@ -54,9 +54,15 @@ class Route
 
                 // Execute middleware
                 foreach ($middleware as $mw) {
-                    $middlewareClass = "App\\Controllers\\Middleware\\$mw";
+                    $middlewareClass = "App\\Controllers\\Middleware\\$mw[class]";
                     if (class_exists($middlewareClass)) {
-                        $middlewareClass::handle();
+
+                        // check if middleware gets parameters 
+                        if (isset($mw["parameters"])) {
+                            $middlewareClass::handle($mw["parameters"]);
+                        } else {
+                            $middlewareClass::handle();
+                        }
                     }
                 }
 
@@ -84,6 +90,11 @@ class Route
         echo "404 - Not Found";
     }
 
+    /**
+     * Set a name for a route
+     * 
+     * @param  string  $handler
+     */
     protected static function setDefaultName(string $handler)
     {
         $splitHandler = explode('@', $handler);
@@ -95,6 +106,41 @@ class Route
     }
 
     /**
+     * Resolve what middleware to execute with wich parameters
+     * 
+     * @param  array  $middlewares
+     */
+    protected static function resolveMiddleware(array $middlewares)
+    {
+        $return = [];
+
+        if (!empty($middlewares) && $middlewares !== null) {
+            foreach ($middlewares as $middleware) {
+                if (str_contains($middleware, ":")) {
+                    $middleware = explode(":", $middleware);
+                    $class = $middleware[0];
+                    $parameters = explode(",", $middleware[1]);
+
+                    $middleware = [
+                        "class" => $class,
+                        "parameters" => $parameters
+                    ];
+
+                    array_push($return, $middleware);
+                } else {
+                    $middleware = [
+                        "class" => $middleware
+                    ];
+                    
+                    array_push($return, $middleware);
+                }
+            }
+        }
+
+        return $return;
+    }
+
+    /**
      * Register a new route with GET method
      */
     public static function get(string $url, string $handler, array $middleware = [], string $name = null)
@@ -103,21 +149,9 @@ class Route
             $name = static::setDefaultName($handler);
         }
 
-        // die(print_r($middleware));
-        foreach($middleware as $mw) {
-            if(str_contains($mw, ":")) {
-                $parameters = explode(":", $mw);
-                $parameters = array_slice($parameters, 1);
-                $class = $parameters[0];
-                die(var_dump($class) . var_dump($parameters));
-                $mw = [
-                    "class" => $class,
-                    "parameters" => $parameters
-                ];
-            }
-        }
+        $resolvedMiddleware = static::resolveMiddleware($middleware);
 
-        static::add_route("GET", $url, $handler, $middleware, $name);
+        static::add_route("GET", $url, $handler, $resolvedMiddleware, $name);
     }
 
     /**

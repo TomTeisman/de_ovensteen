@@ -7,6 +7,6 @@ class Auth
     public static function handle()
     {
         // Check if the user is authenticated
-        echo "Check if the user is authenticated<br>";
+        echo "Check if the user is authenticated</br></br>";
     }
 }
