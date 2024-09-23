@@ -26,9 +26,9 @@ class Role extends Model
     public static function find($id): array
     {
         $sql = "SELECT * FROM `roles` WHERE `id` = :id";
-        $id = ['id' => $id];
+        $parameters = ['id' => $id];
         
-        $role = self::executeQuery($sql, $id);
+        $role = self::executeQuery($sql, $parameters);
         return $role[0];
     }
 
